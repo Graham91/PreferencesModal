@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .mainModalBody {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 450px;
+            width: 600px;
+            /* background-color: grey; */
+            z-index: 986;
+        }
+
+        .modalBackground {
+            top: 0px;
+            left: 0px;
+            display: none;
+            background-color: black;
+            opacity: .2;
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            z-index: 985;
+        }
+
+        .preferences1 {
+            top: 50px;
+            background-color: black;
+            height: 390px;
+            width: 590px;
+            border: ridge 5px rgb(112, 112, 112);
+            position: absolute;
+            background-color: darkgray;
+            ;
+            border-radius: 0 10px 10px 10px;
+        }
+
+        .preferences2 {
+            top: 50px;
+            background-color: black;
+            height: 390px;
+            width: 590px;
+            border: ridge 5px rgb(112, 112, 112);
+            position: absolute;
+            background-color: darkgray;
+            ;
+            border-radius: 10px;
+        }
+
+        .preferences3 {
+            top: 50px;
+            background-color: black;
+            height: 390px;
+            width: 590px;
+            border: ridge 5px rgb(112, 112, 112);
+            position: absolute;
+            background-color: darkgray;
+            ;
+            border-radius: 10px 0 10px 10px;
+        }
+
+
+        .preferencesTab1 {
+            position: absolute;
+            height: 50px;
+            border-width: 5px 5px 0px 5px;
+            border-style: ridge;
+            border-color: rgb(112, 112, 112);
+            border-radius: 10px 10px 0 0;
+            width: 190px;
+            background-color: darkgray;
+            ;
+            top: -55px;
+            left: -5px;
+        }
+
+        .preferencesTab2 {
+            position: absolute;
+            height: 50px;
+            left: 195px;
+            border-width: 5px 5px 0px 5px;
+            border-style: ridge;
+            border-color: rgb(112, 112, 112);
+
+            border-radius: 10px 10px 0 0;
+            width: 190px;
+            background-color: darkgray;
+            ;
+            top: -55px;
+        }
+
+        .preferencesTab3 {
+            position: absolute;
+            height: 50px;
+            left: 395px;
+            border-width: 5px 5px 0px 5px;
+            border-style: ridge;
+            border-color: rgb(112, 112, 112);
+            border-radius: 10px 10px 0 0;
+            width: 190px;
+            background-color: darkgray;
+            ;
+            top: -55px;
+        }
+
+        .closeModal {
+            font-size: 40px;
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            display: none;
+            z-index: 991;
+        }
+
+        .mainColorBox {
+            justify-content: space-around;
+            display: flex;
+            width: 550px;
+            height: 300px;
+            margin: 20px auto;
+            border: solid 1px black;
+        }
+
+        .colorchoices {
+            margin-top: 10px;
+            width: 60px;
+            height: 260px;
+            border: solid 1px black;
+        }
+
+        p {
+            margin: 0px;
+        }
+
+        .backgroundcolor {
+            height: 100%;
+            margin: 0;
+            width: 20%;
+            background-color: green;
+        }
+
+        .background {
+            display: flex;
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .individualcolor {
+            border: solid 1px black;
+            width: 40px;
+            height: 30px;
+            margin: 15px 10px;
+        }
+    </style>
+</head>
+<Button class="modal">MAKE MODAL</Button>
+<div class=background>
+    <div class="backgroundcolor1 backgroundcolor"></div>
+    <div class="backgroundcolor2 backgroundcolor"></div>
+    <div class="backgroundcolor3 backgroundcolor"></div>
+    <div class="backgroundcolor4 backgroundcolor"></div>
+    <div class="backgroundcolor5 backgroundcolor"></div>
+</div>
+<div class="modalBackground">
+</div>
+<span class="closeModal">&#10006;</span>
+<div class="mainModalBody">
+    <div class="preferences3">
+        <div class="preferencesTab3 preferencesTab" id=target3>Upload Image</div>
+    </div>
+    <div class="preferences2">
+        <div class="preferencesTab2 preferencesTab" id=target2>Color Preferences</div>
+        <div class=mainColorBox>
+            <div>
+                <P>COLOR 1</P>
+                <div class="colorchoices color1choices">
+
+                </div>
+            </div>
+            <div>
+                <P>COLOR 2</P>
+                <div class="colorchoices color2choices"></div>
+            </div>
+            <div>
+                <P>COLOR 3</P>
+                <div class="colorchoices color3choices"></div>
+            </div>
+            <div>
+                <P>COLOR 4</P>
+                <div class="colorchoices color4choices"></div>
+            </div>
+            <div>
+                <P>COLOR 5</P>
+                <div class="colorchoices color5choices"></div>
+            </div>
+        </div>
+    </div>
+    <div class="preferences1">
+        <div class="preferencesTab1 preferencesTab" id=target1>User Info</div>
+    </div>
+</div>
+
+<body>
+    <script>
+        $(document).ready(function () {
+            let colorarray = ["red", "green", "orange", "purple", "pink"];
+            let newcolorarray = colorarray;
+            let index = 1;
+            function addcolorstosite(colorarray) {
+                colorarray.forEach(element => {
+                    let classfinder = ".backgroundcolor" + index;
+                    $(classfinder).css("background-color", element);
+
+                    index++;
+                });
+                index = 1;
+            }
+            addcolorstosite(colorarray);
+            function setupcolorpreferencespage(colorarray) {
+
+                for (let index = 1; index < 6; index++) {
+                    let classfinder = ".color" + index + "choices";
+                    colorarray.forEach(element => {
+                        $(classfinder).append("<div class='individualcolor' id='color" + index + element + "' style='background-color: " + element + ";'></div>")
+
+                    });
+
+
+                }
+
+            }
+            function updatecolorarray(colorid) {
+
+                var colormainidentity = colorid.charAt(5);
+                var color = colorid.slice(6);
+
+                let indexforcolorarray = parseInt(colormainidentity) - 1;
+                newcolorarray[indexforcolorarray] = color;
+                addcolorstosite(newcolorarray);
+
+            }
+            setupcolorpreferencespage(colorarray);
+            $(".individualcolor").on("click", function (event) {
+                let target = event.target;
+                let colorID = $(target).attr("id");
+
+                updatecolorarray(colorID);
+            })
+            $(".modal").on("click", function () {
+                $(".mainModalBody").css("display", "block");
+                $(".modalBackground").css("display", "block");
+                $(".closeModal").css("display", "block");
+            })
+            $(".closeModal").on("click", function () {
+                $(".mainModalBody").css("display", "none");
+                $(".modalBackground").css("display", "none");
+                $(".closeModal").css("display", "none");
+            })
+            $(".preferencesTab").on("click", function (event) {
+                $(".preferencesTab").css("z-index", "980");
+                $(".preferences1").css("z-index", "980");
+                $(".preferences2").css("z-index", "980");
+                $(".preferences3").css("z-index", "980");
+                let target = event.target;
+                var parent = target.parentElement;
+                var parentclass = "." + $(parent).attr("class");
+                $(parentclass).css("z-index", "990");
+
+            });
+        });
+    </script>
+</body>
+
+</html>
